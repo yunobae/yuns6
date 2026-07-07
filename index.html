@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건설현장 태풍 재난대응 통합 플랫폼</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans">
+
+    <header class="bg-blue-900 text-white p-6 shadow-lg">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-2xl font-bold">건설현장 태풍 재난대응 플랫폼</h1>
+            <div class="mt-4 md:mt-0 flex gap-4">
+                <span class="bg-orange-500 px-3 py-1 rounded text-sm font-semibold">🚨 현재 위험 단계: 주의</span>
+                <span class="text-sm opacity-80" id="currentDate"></span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-6 space-y-8">
+        
+        <section>
+            <h2 class="text-xl font-bold mb-4 border-l-4 border-blue-900 pl-3">주요 피해 상황 (Damage Scenarios)</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-5 rounded-xl card-shadow border-t-4 border-red-500">
+                    <h3 class="font-bold text-lg mb-2">🏗️ 장비 전도</h3>
+                    <p class="text-sm text-slate-600">강풍으로 인한 타워크레인 전도 및 가설 비계 무너짐. 고소 작업 중 자재 낙하 발생.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl card-shadow border-t-4 border-amber-500">
+                    <h3 class="font-bold text-lg mb-2">🌊 지반 침하 및 토사</h3>
+                    <p class="text-sm text-slate-600">집중호우로 인한 사면 붕괴, 터파기 구간 침수, 가설 도로 유실로 인한 장비 진입 불가.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl card-shadow border-t-4 border-blue-500">
+                    <h3 class="font-bold text-lg mb-2">⚡ 감전 및 누전</h3>
+                    <p class="text-sm text-slate-600">침수된 현장에서 가설 전기 배선 누전으로 인한 작업자 감전 사고 발생.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 신규 섹션: 역사적 데이터 추가 -->
+        <section>
+            <h2 class="text-xl font-bold mb-4 border-l-4 border-amber-500 pl-3">태풍 피해 역사와 교훈 (1990s - 2025)</h2>
+            <div class="bg-slate-800 text-white p-6 rounded-xl overflow-y-auto max-h-80">
+                <ul class="space-y-4">
+                    <li class="border-b border-slate-600 pb-2">
+                        <span class="text-amber-400 font-bold">1990s: 초기 단계 (굴착지 침수)</span>
+                        <p class="text-sm opacity-90">글래디스(1991) 등: 현장 배수 체계 미비로 인한 기초 굴착 현장의 토사 붕괴 및 침수가 주를 이룸.</p>
+                    </li>
+                    <li class="border-b border-slate-600 pb-2">
+                        <span class="text-amber-400 font-bold">2000s: 대형 재난 (장비 관리 부실)</span>
+                        <p class="text-sm opacity-90">루사(2002), 매미(2003): 건설 기계(타워크레인) 관리 소홀로 인한 대형 전도 사고 급증. 장비 고박 기준 정립의 계기.</p>
+                    </li>
+                    <li class="border-b border-slate-600 pb-2">
+                        <span class="text-amber-400 font-bold">2010s: 고층화·도심지 피해</span>
+                        <p class="text-sm opacity-90">볼라벤(2012), 차바(2016): 도심지 초고층 빌딩 공사 현장의 외장재 낙하 및 비계 붕괴 발생. 도심 밀집 지역 안전 관리 이슈 부상.</p>
+                    </li>
+                    <li>
+                        <span class="text-amber-400 font-bold">2020s-2025: 스마트 및 복합 재난</span>
+                        <p class="text-sm opacity-90">힌남노(2022) 등: 집중 호우와 해일이 결합된 복합 피해. 지하 주차장 침수 및 스마트 인프라(IoT 등) 손상 위협에 따른 통합 대응체계 마련.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-xl font-bold mb-4 border-l-4 border-blue-900 pl-3">단계별 해결 방안 (Action Plan)</h2>
+            
+            <div class="flex flex-col gap-4" id="action-tabs">
+                <!-- Tab Buttons -->
+                <div class="flex gap-2">
+                    <button onclick="showTab('before')" class="tab-btn active px-4 py-2 bg-blue-900 text-white rounded-lg text-sm">태풍 전(사전 예방)</button>
+                    <button onclick="showTab('during')" class="tab-btn px-4 py-2 bg-slate-200 text-slate-700 rounded-lg text-sm">태풍 중(대응)</button>
+                    <button onclick="showTab('after')" class="tab-btn px-4 py-2 bg-slate-200 text-slate-700 rounded-lg text-sm">태풍 후(복구)</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div id="tab-content" class="bg-white p-6 rounded-xl card-shadow">
+                    <ul id="content-list" class="space-y-3">
+                        <!-- Content will be injected by JS -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-slate-800 text-white p-6 rounded-xl">
+            <h2 class="text-lg font-bold mb-4">비상 연락망 (Emergency Contact)</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div class="p-2 border border-slate-600 rounded">소방서: 119</div>
+                <div class="p-2 border border-slate-600 rounded">재난안전대책본부: 02-000-0000</div>
+                <div class="p-2 border border-slate-600 rounded">현장 비상반: 010-0000-0000</div>
+                <div class="p-2 border border-slate-600 rounded">기상청: 131</div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const contentData = {
+            before: [
+                "🏗️ **타워크레인/리프트:** 선회 브레이크 해제(수동 고박), 붐(Boom)을 풍향과 일치시켜 풍하중 최소화",
+                "🔩 **가설 구조물:** 외부 비계 벽이음 20% 추가 보강, 낙하 방지망 고정부 및 연결 철물 집중 점검",
+                "🌊 **배수 시스템:** 현장 내 모든 집수정 양수기(펌프) 상시 가동 테스트 및 퇴적물 사전 준설",
+                "📦 **자재 관리:** 옥상 적재물 전면 실내 이동, 고소 작업용 자재 2점 결박 및 이동식 비계 결속",
+                "⚡ **지반 보강:** 절토/성토 사면 비닐 피복(P/E 시트) 설치하여 우수 침투에 의한 토사 유실 방지"
+            ],
+            during: [
+                "⚠️ **작업 통제:** 순간 풍속 15m/s 이상 시 옥외 고소 작업 즉시 중단 및 작업자 전원 안전 지대 대피",
+                "🔌 **전력 차단:** 지하층 및 침수 우려 지역 가설 전기 설비 차단기(MCCB) 강제 오프(Off) 조치",
+                "📱 **비상 연락:** 상황실(현장 사무소) 비상 대응팀 운영, 1시간 단위 실시간 현장 상황 전파",
+                "🚧 **출입 봉쇄:** 외부인 현장 진입 금지 및 현장 내 주요 출입구 경비 인력 배치",
+                "🛰️ **모니터링:** 드론 또는 CCTV를 활용한 현장 주요 취약 구간 원격 실시간 감시"
+            ],
+            after: [
+                "🔍 **지반 진단:** 터파기 사면 붕괴 여부, 지반 침하에 따른 장비 진입로 유실 여부 육안/계측 점검",
+                "⚡ **설비 점검:** 침수 장비 절연 저항(메거) 측정, 가설 전기 배선 단락 검사 후 전원 인가",
+                "🏗️ **시설 보수:** 비계 연결 철물 이완 확인, 파손된 낙하물 방지망 교체 및 가설재 정비",
+                "📑 **안전 일지:** 작업 재개 전 관리감독자-안전관리자 합동 현장 점검 및 서명, 사진 기록 확보",
+                "🛡️ **보건 점검:** 작업장 습기로 인한 곰팡이 방지 및 감염병 예방을 위한 방역/소독 실시"
+            ]
+        };
+
+        function showTab(tabId) {
+            // Update buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-900', 'text-white');
+                btn.classList.add('bg-slate-200', 'text-slate-700');
+            });
+            event.target.classList.remove('bg-slate-200', 'text-slate-700');
+            event.target.classList.add('bg-blue-900', 'text-white');
+
+            // Update content
+            const list = document.getElementById('content-list');
+            list.innerHTML = contentData[tabId].map(item => `<li class="flex items-center gap-2"><span class="text-blue-600">✔</span> ${item}</li>`).join('');
+        }
+
+        // Initialize
+        document.getElementById('currentDate').innerText = new Date().toLocaleDateString('ko-KR');
+        showTab('before');
+    </script>
+</body>
+</html>
